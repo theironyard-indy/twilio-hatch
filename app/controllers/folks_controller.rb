@@ -16,6 +16,11 @@ class FolksController < ApplicationController
     render json: @folks
   end
 
+  def show
+    @folk = Folk.find(params[:id])
+    render json: @folk
+  end
+
   private
 
   def folk_params
