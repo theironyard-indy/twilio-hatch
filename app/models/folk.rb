@@ -21,7 +21,7 @@ class Folk < ApplicationRecord
   end
 
   def normalize_phone
-    phone_number = self.class.normalize_phone(phone_number)
+    self.phone_number = self.class.normalize_phone(phone_number)
   end
 
   def message_count
