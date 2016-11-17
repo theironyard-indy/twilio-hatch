@@ -3,7 +3,8 @@ class FolksController < ApplicationController
   def create
     @folk = Folk.new(folk_params)
     if @folk.save
-      @folk.send_sms
+      message = Message.create(folk: @folk, body: params[:message])
+      @folk.send_sms(message.body)
       render json: @folk, status: :created
     else
       render json: @folk.errors.full_messages,
@@ -24,6 +25,6 @@ class FolksController < ApplicationController
   private
 
   def folk_params
-    params.permit(:name, :phone_number, :message)
+    params.permit(:name, :phone_number)
   end
 end

@@ -1,7 +1,7 @@
 class Folk < ApplicationRecord
   has_many :messages
 
-  validates :name, :phone_number, :message, presence: true
+  validates :name, :phone_number, presence: true
 
   before_create :normalize_phone
 
@@ -10,7 +10,7 @@ class Folk < ApplicationRecord
           .gsub(/(^1|\D+)/, "")
   end
 
-  def send_sms
+  def send_sms(message)
     twilio_number = ENV['twilio_number']
     client = Twilio::REST::Client.new
     client.messages.create(
@@ -25,7 +25,7 @@ class Folk < ApplicationRecord
   end
 
   def message_count
-    messages.count + 1
+    messages.count
   end
 
 
